@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       { hostname: "images.igdb.com" },
       { hostname: "covers.openlibrary.org" },
       { hostname: "coverartarchive.org" },
+      { hostname: "upload.wikimedia.org" },
     ],
   },
 };

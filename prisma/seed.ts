@@ -94,6 +94,7 @@ const games = [
     description: "Run and jump through the Mushroom Kingdom to rescue Princess Peach from Bowser in Nintendo's landmark side-scrolling platformer.",
     releaseDate: new Date("1985-09-13"),
     igdbId: "1074",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/0/03/Super_Mario_Bros._box.png",
     metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Platform"] },
   },
   {
@@ -101,6 +102,7 @@ const games = [
     description: "Explore the land of Hyrule, collecting pieces of the Triforce of Wisdom to rescue Princess Zelda from the evil Ganon.",
     releaseDate: new Date("1986-02-21"),
     igdbId: "1074216",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/4/41/Legend_of_zelda_cover_%28with_cartridge%29_gold.png",
     metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Action", "Adventure"] },
   },
   {
@@ -108,6 +110,7 @@ const games = [
     description: "Navigate a maze eating dots and fruit while avoiding four colourful ghosts in the iconic arcade classic.",
     releaseDate: new Date("1980-05-22"),
     igdbId: "1079",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/1/16/Pac_flyer.png",
     metadata: { developer: "Namco", platforms: ["Arcade", "Atari 2600"], genres: ["Maze"] },
   },
   {
@@ -115,6 +118,7 @@ const games = [
     description: "Climb ladders and dodge barrels thrown by a giant ape to rescue a kidnapped woman in this landmark arcade platformer.",
     releaseDate: new Date("1981-07-09"),
     igdbId: "1704",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/1/14/Donkey_Kong_flier.jpg",
     metadata: { developer: "Nintendo", platforms: ["Arcade", "NES"], genres: ["Platform"] },
   },
   {
@@ -122,6 +126,7 @@ const games = [
     description: "Arrange falling blocks of different shapes to clear lines and prevent the stack from reaching the top of the screen.",
     releaseDate: new Date("1984-06-06"),
     igdbId: "1716",
+    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Tetris_logo_2019.svg/960px-Tetris_logo_2019.svg.png",
     metadata: { developer: "Alexey Pajitnov", platforms: ["Game Boy", "NES", "Arcade"], genres: ["Puzzle"] },
   },
   {
@@ -129,6 +134,7 @@ const games = [
     description: "Battle eight robot masters and their stages before taking on Dr. Wily's fortress in Capcom's beloved action-platformer.",
     releaseDate: new Date("1988-12-24"),
     igdbId: "1073",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/b/be/Megaman2_box.jpg",
     metadata: { developer: "Capcom", platforms: ["NES"], genres: ["Action", "Platform"] },
   },
   {
@@ -136,6 +142,7 @@ const games = [
     description: "Fight through jungles, bases, and alien lairs in this classic run-and-gun shooter, best known for its two-player co-op.",
     releaseDate: new Date("1987-02-20"),
     igdbId: "1702",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/6/65/Contra_cover.jpg",
     metadata: { developer: "Konami", platforms: ["NES", "Arcade"], genres: ["Run and gun"] },
   },
   {
@@ -143,6 +150,7 @@ const games = [
     description: "Wield the Vampire Killer whip through Dracula's castle, battling monsters and bosses across 18 levels of gothic action.",
     releaseDate: new Date("1986-09-26"),
     igdbId: "1083",
+    coverImage: "https://upload.wikimedia.org/wikipedia/commons/1/15/Castlevania_logo.png",
     metadata: { developer: "Konami", platforms: ["NES"], genres: ["Action", "Platform"] },
   },
   {
@@ -150,6 +158,7 @@ const games = [
     description: "Explore the alien planet Zebes as bounty hunter Samus Aran, uncovering secrets and battling the Space Pirates and Mother Brain.",
     releaseDate: new Date("1986-08-06"),
     igdbId: "1072",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/5/5d/Metroid_boxart.jpg",
     metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Action", "Adventure"] },
   },
   {
@@ -157,6 +166,7 @@ const games = [
     description: "Train Little Mac through a circuit of colourful boxers to ultimately challenge the world heavyweight champion Mike Tyson.",
     releaseDate: new Date("1987-10-18"),
     igdbId: "7040",
+    coverImage: "https://upload.wikimedia.org/wikipedia/en/c/c8/Mike_Tyson%27s_Punch-Out%21%21_NES_Box.jpg",
     metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Sports", "Boxing"] },
   },
 ];
@@ -183,7 +193,7 @@ async function main() {
   for (const game of games) {
     await prisma.mediaItem.upsert({
       where: { igdbId_mediaType: { igdbId: game.igdbId, mediaType: "GAME" } },
-      update: {},
+      update: { coverImage: game.coverImage },
       create: {
         mediaType: "GAME",
         ...game,
