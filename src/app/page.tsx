@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+
 const mediaTypes = [
   { emoji: "🎬", label: "Movies" },
   { emoji: "📺", label: "TV Shows" },
@@ -7,7 +10,9 @@ const mediaTypes = [
   { emoji: "🎙️", label: "Podcasts" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  if (session?.user) redirect("/dashboard");
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Nav */}
