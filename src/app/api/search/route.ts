@@ -3,6 +3,8 @@ import { searchMulti, posterUrl } from "@/lib/media-apis/tmdb";
 import { searchGames } from "@/lib/media-apis/igdb";
 import { searchBooks, coverUrl as bookCoverUrl } from "@/lib/media-apis/openlibrary";
 import { searchAlbums } from "@/lib/media-apis/musicbrainz";
+import { prisma } from "@/lib/prisma";
+import { type MediaType } from "@prisma/client";
 
 export type SearchResultItem = {
   externalId: string;
@@ -21,6 +23,27 @@ export async function GET(req: Request) {
   if (!q) return NextResponse.json({ results: [] });
 
   const results: SearchResultItem[] = [];
+
+  // Search local DB first
+  const typeFilter = type === "ALL" ? undefined : type as MediaType;
+  const localItems = await prisma.mediaItem.findMany({
+    where: {
+      title: { contains: q, mode: "insensitive" },
+      ...(typeFilter ? { mediaType: typeFilter } : {}),
+    },
+    take: 20,
+  });
+  for (const item of localItems) {
+    const extId = item.tmdbId ?? item.igdbId ?? item.openLibId ?? item.mbId ?? item.id;
+    results.push({
+      externalId: extId,
+      title: item.title,
+      description: item.description ?? undefined,
+      coverImage: item.coverImage ?? undefined,
+      releaseYear: item.releaseDate?.getFullYear().toString(),
+      mediaType: item.mediaType as SearchResultItem["mediaType"],
+    });
+  }
 
   try {
     // Movies + TV via TMDB
