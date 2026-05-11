@@ -88,6 +88,79 @@ const movies = [
   },
 ];
 
+const games = [
+  {
+    title: "Super Mario Bros.",
+    description: "Run and jump through the Mushroom Kingdom to rescue Princess Peach from Bowser in Nintendo's landmark side-scrolling platformer.",
+    releaseDate: new Date("1985-09-13"),
+    igdbId: "1074",
+    metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Platform"] },
+  },
+  {
+    title: "The Legend of Zelda",
+    description: "Explore the land of Hyrule, collecting pieces of the Triforce of Wisdom to rescue Princess Zelda from the evil Ganon.",
+    releaseDate: new Date("1986-02-21"),
+    igdbId: "1074216",
+    metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Action", "Adventure"] },
+  },
+  {
+    title: "Pac-Man",
+    description: "Navigate a maze eating dots and fruit while avoiding four colourful ghosts in the iconic arcade classic.",
+    releaseDate: new Date("1980-05-22"),
+    igdbId: "1079",
+    metadata: { developer: "Namco", platforms: ["Arcade", "Atari 2600"], genres: ["Maze"] },
+  },
+  {
+    title: "Donkey Kong",
+    description: "Climb ladders and dodge barrels thrown by a giant ape to rescue a kidnapped woman in this landmark arcade platformer.",
+    releaseDate: new Date("1981-07-09"),
+    igdbId: "1704",
+    metadata: { developer: "Nintendo", platforms: ["Arcade", "NES"], genres: ["Platform"] },
+  },
+  {
+    title: "Tetris",
+    description: "Arrange falling blocks of different shapes to clear lines and prevent the stack from reaching the top of the screen.",
+    releaseDate: new Date("1984-06-06"),
+    igdbId: "1716",
+    metadata: { developer: "Alexey Pajitnov", platforms: ["Game Boy", "NES", "Arcade"], genres: ["Puzzle"] },
+  },
+  {
+    title: "Mega Man 2",
+    description: "Battle eight robot masters and their stages before taking on Dr. Wily's fortress in Capcom's beloved action-platformer.",
+    releaseDate: new Date("1988-12-24"),
+    igdbId: "1073",
+    metadata: { developer: "Capcom", platforms: ["NES"], genres: ["Action", "Platform"] },
+  },
+  {
+    title: "Contra",
+    description: "Fight through jungles, bases, and alien lairs in this classic run-and-gun shooter, best known for its two-player co-op.",
+    releaseDate: new Date("1987-02-20"),
+    igdbId: "1702",
+    metadata: { developer: "Konami", platforms: ["NES", "Arcade"], genres: ["Run and gun"] },
+  },
+  {
+    title: "Castlevania",
+    description: "Wield the Vampire Killer whip through Dracula's castle, battling monsters and bosses across 18 levels of gothic action.",
+    releaseDate: new Date("1986-09-26"),
+    igdbId: "1083",
+    metadata: { developer: "Konami", platforms: ["NES"], genres: ["Action", "Platform"] },
+  },
+  {
+    title: "Metroid",
+    description: "Explore the alien planet Zebes as bounty hunter Samus Aran, uncovering secrets and battling the Space Pirates and Mother Brain.",
+    releaseDate: new Date("1986-08-06"),
+    igdbId: "1072",
+    metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Action", "Adventure"] },
+  },
+  {
+    title: "Mike Tyson's Punch-Out!!",
+    description: "Train Little Mac through a circuit of colourful boxers to ultimately challenge the world heavyweight champion Mike Tyson.",
+    releaseDate: new Date("1987-10-18"),
+    igdbId: "7040",
+    metadata: { developer: "Nintendo", platforms: ["NES"], genres: ["Sports", "Boxing"] },
+  },
+];
+
 async function main() {
   console.log("Seeding 1980s action movies...");
 
@@ -104,6 +177,22 @@ async function main() {
   }
 
   console.log(`\nDone — ${movies.length} movies seeded.`);
+
+  console.log("\nSeeding 1980s video games...");
+
+  for (const game of games) {
+    await prisma.mediaItem.upsert({
+      where: { igdbId_mediaType: { igdbId: game.igdbId, mediaType: "GAME" } },
+      update: {},
+      create: {
+        mediaType: "GAME",
+        ...game,
+      },
+    });
+    console.log(`  ✓ ${game.title} (${game.releaseDate.getFullYear()})`);
+  }
+
+  console.log(`\nDone — ${games.length} games seeded.`);
 }
 
 main()
