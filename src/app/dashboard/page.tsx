@@ -126,9 +126,10 @@ export default async function DashboardPage() {
           ) : (
             <div className="flex flex-col gap-2">
               {recentEntries.map((entry) => (
-                <div
+                <Link
                   key={entry.id}
-                  className="bg-zinc-900 border border-zinc-800 rounded-xl px-5 py-4 flex items-center justify-between"
+                  href={`/media/${entry.mediaItem.id}`}
+                  className="bg-zinc-900 border border-zinc-800 rounded-xl px-5 py-4 flex items-center justify-between hover:border-zinc-600 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-xl">{MEDIA_TYPE_LABELS[entry.mediaItem.mediaType].emoji}</span>
@@ -145,7 +146,7 @@ export default async function DashboardPage() {
                       {STATUS_LABELS[entry.status]}
                     </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
