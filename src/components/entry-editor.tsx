@@ -84,7 +84,12 @@ export function EntryEditor({ entryId, initial }: Props) {
 
       {/* Rating */}
       <div className="flex flex-col gap-2">
-        <label className="text-sm text-zinc-400">Rating <span className="text-zinc-600">(0–10)</span></label>
+        <label className="text-sm text-zinc-400">
+          Rating{" "}
+          <span className="text-zinc-500">
+            {rating !== "" ? `(${rating}/10)` : "(0–10)"}
+          </span>
+        </label>
         <input
           type="number"
           min={0}
