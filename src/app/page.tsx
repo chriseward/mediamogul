@@ -30,12 +30,11 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center justify-center text-center px-6 py-24 gap-8">
         <h1 className="text-6xl sm:text-7xl font-bold tracking-tight leading-tight max-w-3xl">
           All your media,{" "}
-          <span className="text-zinc-500">belong to</span>
-          <br />
+          <span className="text-zinc-500">belong to</span>{" "}
           <span className="text-zinc-400">you.</span>
         </h1>
 
-        <p className="text-lg text-zinc-400 max-w-md leading-relaxed">
+        <p className="text-lg text-zinc-400 max-w-2xl leading-relaxed">
           Track, rate, and review everything you watch, play, read, and listen to.
           <br />
           Like Letterboxd — but for every kind of media.
