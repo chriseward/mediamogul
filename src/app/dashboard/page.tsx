@@ -68,6 +68,9 @@ export default async function DashboardPage() {
           MediaMogul
         </Link>
         <div className="flex items-center gap-6">
+          <Link href="/search" className="text-sm font-medium bg-white text-black px-4 py-2 rounded-full hover:bg-zinc-200 transition-colors">
+            + Track something
+          </Link>
           <span className="text-sm text-zinc-400">{session.user.name ?? session.user.email}</span>
           <SignOutButton />
         </div>
